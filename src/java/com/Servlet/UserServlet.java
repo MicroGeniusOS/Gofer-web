@@ -51,6 +51,7 @@ public class UserServlet extends HttpServlet {
                     String Email_PhoneNumber = data[0];
                     String Password = data[1];
                     String result = "";
+                    String res = "";
                     String UserStatus = "";
                     int UserID = 0;
                     String json1 = "";
@@ -63,16 +64,17 @@ public class UserServlet extends HttpServlet {
                                 String fName = UserManager.getUserFirstName(UserID);
                                 String userName = UserManager.getUserName(UserID);
                                 String email = UserManager.getUserEmail(UserID);
+                                String phone = UserManager.getUserPhone(UserID);
+                                    result = "success";
                                 try {
 //                                    EmailManager em = new EmailManager();
-                                    result = "success";
-//                                    String ses = UserManager.CreateSession(UserID);
+                                    int ses = UserManager.getUserID(email, phone);
                                     session.setAttribute("userName", userName);
                                     session.setAttribute("fName", fName);
-//                                    session.setAttribute("sess", ses);
-//                                    if (res.equalsIgnoreCase("success")) {
-//                                        result = "success";
-//                                    }
+                                    session.setAttribute("sess", ses);
+                                    if (res.equalsIgnoreCase("success")) {
+                                        result = "success";
+                                    }
                                 } catch (Exception e) {
                                     System.out.println(e);
                                 }
@@ -82,20 +84,17 @@ public class UserServlet extends HttpServlet {
                                 break;
                             } else {
                                 result = "Account hasn't been activated, pls check your email to activate your account";
-                                json1 = new Gson().toJson(result);
-                                json = "[" + json1 + "]";
+                                json = new Gson().toJson(result);
                                 break;
                             }
                         } else {
                             result = "Incorrect Password";
-                            json1 = new Gson().toJson(result);
-                            json = "[" + json1 + "]";
+                            json = new Gson().toJson(result);
                         }
                         break;
                     } else {
-                        result = "This Email hasn't been registered";
-                        json1 = new Gson().toJson(result);
-                        json = "[" + json1 + "]";
+                        result = "Email or Phone Number Entered Doesn't Exist";
+                        json = new Gson().toJson(result);
                         break;
                     }
                 }
@@ -160,7 +159,7 @@ public class UserServlet extends HttpServlet {
                                 session.setAttribute("fName", FirstName);
                                 session.setAttribute("sess", res);
                                 session.setAttribute("Id", UserID);
-                                result = "success";
+                                res = "success";
                             }
                         } else {
                             res = "Email or Phone Number already registered";
@@ -169,8 +168,8 @@ public class UserServlet extends HttpServlet {
                         res = "Invalid Inputs";
                     }
 //                    String json1 = new Gson().toJson(result);
-                    String json1 = new Gson().toJson(res);
-                    json = "[" + json1 + "]";
+                    json = new Gson().toJson(res);
+//                    json = "[" + json1 + "]";
                     break;
                 }
 

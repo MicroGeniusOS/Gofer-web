@@ -13,7 +13,7 @@
             <a href="#" class="login-link active" id="login-box-link">Login</a>
             <a href="#" class="login-link " id="register-box-link">Register</a>
         </div>
-        <form class="email-login" name="loginForm">
+        <form class="email-login" name="loginForm" data-parsley-validate="">
             <h1 class="login-header">Welcome Back</h1>
             <p class="login-text">Fill in your details to register and start gofering</p>
 
@@ -36,7 +36,7 @@
             <p class="account">Don't have an account? <a href="#"><span class="login-span">Register</span></a>
             </p>
         </form>
-        <form class="email-signup" name="registerForm">
+        <form class="email-signup" name="registerForm" data-parsley-validate="">
             <h1 class="login-header">Create an account</h1>
             <p class="login-text">Fill in your details to register and start gofering</p>
             <div class="account-input">
@@ -67,7 +67,7 @@
                 <div class="section-headline margin-top-25 margin-bottom-12">
                     <h5 class="input-text">Email Address</h5>
                 </div>
-                <input class="input-box" placeholder="" id="email">
+                <input class="input-box" placeholder="" id="emailAddress">
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 20px;">
@@ -75,7 +75,6 @@
                     <h5 class="input-text">Password</h5>
                 </div>
                 <input class="input-box" placeholder="" id="password" type="password" required="">
-                <p class="hide chkpass"> Password does not match. Please confirm</p>
             </div>
 
             <div class="col-xl-6 col-md-6" style="margin-top: 20px;">
@@ -83,6 +82,7 @@
                     <h5 class="input-text">Confirm Password</h5>
                 </div>
                 <input class="input-box" placeholder="" id="confirmPassword" type="password">
+                <span id="chkpass"> </span>
             </div>
             <div class="reg-btn-block" style="margin-top: 20px;">
                 <button class="btn-reg" type="submit" id="register">Register</button>

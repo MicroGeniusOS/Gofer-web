@@ -4,15 +4,21 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/Scripts/js/helper.js</file>
+            <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/pages/profile.jsp</file>
+            <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/WEB-INF/jspf/static_pages/user/profile.jsp</file>
+            <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/WEB-INF/jspf/static_pages/user/my-posted-errands.jsp</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/WEB-INF/jspf/static_pages/user/wallet.jsp</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/pages/login.jsp</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/pages/wallet.jsp</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/Scripts/css/login.css</file>
-            <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/WEB-INF/jspf/static_pages/user/withdraw.jsp</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/src/java/com/Servlet/ErrandsServlet.java</file>
+            <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/pages/my-posted-errand.jsp</file>
+            <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/pages/withdraw.jsp</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/WEB-INF/jspf/static_pages/user/fund-wallet.jsp</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/Scripts/js/AppScript.js</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/src/java/com/Controller/LinksServlet.java</file>
+            <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/WEB-INF/jspf/static_pages/user/view-errands.jsp</file>
+            <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/pages/view-errands.jsp</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/src/java/com/Controller/ControllerServlet.java</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/src/java/com/Servlet/UserServlet.java</file>
             <file>file:/Users/user/Documents/Gofer%20App/Gofer%20App/Gofer/web/pages/post-errand.jsp</file>

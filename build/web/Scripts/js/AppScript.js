@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var extension;
+var extension,user,userID;
 var userdata = new Array();
 var countList = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Anguilla", "Antigua &amp; Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas"
             , "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia &amp; Herzegovina", "Botswana", "Brazil", "British Virgin Islands"
@@ -37,7 +37,8 @@ function initAutocomplete() {
 function performPageActions() {
 //    verifyUser();
     var page = getCurrentPage();
-    userid = $("#userid").val();
+    userID = $("#ID").val();
+    user = $("#username").val();
     if (page === "index.jsp") {
         extension = "../";
     } else if (page === "login.jsp") {
@@ -45,45 +46,65 @@ function performPageActions() {
     }
 //    checkUser();
     btnEvents();
+    ProfileFunctions(userID);
 }
 
 // Functions for the User Profile page and other profile elements
-function ProfileFunctions(sess) {
-
-    GetData("Profile", "getUserProfile", "LoadUserProfile", sess);
+function ProfileFunctions(userID) {
+    GetData("Profile", "getUserProfile", "LoadUserProfile", userID);
 }
 
 // Function handles all button Events within the Application
 function btnEvents() {
     $("form[name=loginForm]").submit(function (e) {
-        var email = $("#email").val();
-        var password = $("#pass").val();
-        var data = [email, password];
-            localStorage.Email = email;
-            localStorage.Pass = password;
-        GetData("User", "Login", "LoadUserLogin", data);
+        var f = $(this);
+        f.parsley().validate();
+        if (f.parsley().isValid()) {
+            var email = $("#email").val();
+            var password = $("#pass").val();
+            var data = [email, password];
+//            localStorage.Email = email;
+//            localStorage.Pass = password;
+            GetData("User", "Login", "LoadUserLogin", data);
+        } else {
+            swal({
+                title: "Login Error",
+                text: "Please check login details",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonClass: 'btn btn-danger',
+                confirmButtonText: 'Ok!'
+            });
+        }
         e.preventDefault();
     });
 
     $("form[name=registerForm]").submit(function (e) {
-        var firstname = $("#fname").val();
-        var lastname = $("#lname").val();
-        var phonenumber = $("#phone").val();
-        var emailaddress = $("#email").val();
-        if ($("#confirmPassword").val() !== $("#password").val()) {
-            $(".chkpass").show();
-            $(".chkpass").removeClass("hide");
-            $("#password").val('');
-            return;
-        } else {
+        var regform = $(this);
+        regform.parsley().validate();
+        if (regform.parsley().isValid()) {
+            var firstname = $("#fname").val();
+            var lastname = $("#lname").val();
+            var phonenumber = $("#phone").val();
+            var emailaddress = $("#emailAddress").val();
             var password = $("#password").val();
+
+            var data = [firstname, lastname, emailaddress, phonenumber, password];
+            GetData("User", "MemberRegistration", "LoadRegistration", data);
         }
-        var data = [firstname, lastname, emailaddress, phonenumber, password];
-        GetData("User", "MemberRegistration", "LoadRegistration", data);
         e.preventDefault();
     });
 }
 
+function isPasswordMatch() {
+    $('#register').prop('disabled', true);
+    if ($('#password').val() === $('#confirmPassword').val()) {
+        $('#chkpass').html('Matching Password').css('color', 'green');
+        $('#register').prop('disabled', false);
+    } else
+        $('#chkpass').html('Not Matching Password').css('color', 'red');
+
+}
 //function LoginFunctions() {
 //    if (localStorage.chkbx && localStorage.chkbx !== '') {
 //        $("#remember_me").attr('checked', 'checked');
@@ -94,8 +115,8 @@ function btnEvents() {
 //        $("#email").val('');
 //        $("#pass").val('');
 //    }
-////    window.location = extension + "ControllerServlet?action=Link&type=Profile";
-//    
+//    user = $("#username").val();
+//    window.location = extension + "ControllerServlet?action=Link&type=Errands";    
 //}
 
 function DisplayProfileData(data) {
@@ -103,26 +124,26 @@ function DisplayProfileData(data) {
     if (data === "empty") {
         window.location = extension + "ControllerServlet?action=Link&type=Logout";
     } else {
-        $(".data-user-name").text(data["uNam"]);
-        $(".pro-date-joined").text(data["dateJoined"]);
-        var title = data["sp_title"];
-        var desc = data["sp_description"];
-        if (title !== "" && title !== "null") {
-            $(".data-user-title").text(title);
-            $("#txt-title").val(title);
-        }
-        if (desc !== "" && desc !== "null") {
-            $(".data-user-description").html(desc);
-            var regex = /<br\s*[\/]?>/gi;
-            var editDesc = desc.replace(regex, '\n');
-            $("#txt-desc").val(editDesc);
-        }
-        var len = $(".edit-pro-txt-desc").val().length;
-        if (len >= 500) {
-            $(".edit-pro-txt-desc").val($(".edit-pro-txt-desc").val().substring(0, 500));
-        } else {
-            $("#charNum").text(500 - len);
-        }
+//        $(".data-user-name").text(data["uNam"]);
+//        $(".pro-date-joined").text(data["dateJoined"]);
+//        var title = data["sp_title"];
+//        var desc = data["sp_description"];
+//        if (title !== "" && title !== "null") {
+//            $(".data-user-title").text(title);
+//            $("#txt-title").val(title);
+//        }
+//        if (desc !== "" && desc !== "null") {
+//            $(".data-user-description").html(desc);
+//            var regex = /<br\s*[\/]?>/gi;
+//            var editDesc = desc.replace(regex, '\n');
+//            $("#txt-desc").val(editDesc);
+//        }
+//        var len = $(".edit-pro-txt-desc").val().length;
+//        if (len >= 500) {
+//            $(".edit-pro-txt-desc").val($(".edit-pro-txt-desc").val().substring(0, 500));
+//        } else {
+//            $("#charNum").text(500 - len);
+//        }
 //        DisplaySkills(data["sp_skills"]);
     }
 }
@@ -131,11 +152,11 @@ function DisplayRegistration(data) {
     if (data === "success") {
         swal({
             title: "Account created",
-            text: "Check your email validate and verify your account!",
+            text: "Check your email to validate and verify your account!",
             type: "success",
             showCancelButton: false,
             confirmButtonClass: 'btn btn-success',
-            confirmButtonText: 'Ok!',
+            confirmButtonText: 'Ok',
             onClose: function () {
                 window.location = extension + "LinksServlet?type=Login";
             }
@@ -157,7 +178,7 @@ function DisplayRegistration(data) {
 
 function DisplayUserLogin(data) {
 //    hideLoader();
-    if (data === "Incorrect Login Details") {
+    if (data === "Incorrect Password") {
         swal({
             title: "Oops!",
             text: "Incorrect Login Details, Please try again!",
@@ -181,10 +202,10 @@ function DisplayUserLogin(data) {
                 window.location = extension + "ControllerServlet?action=Link&type=Login";
             }
         });
-    } else if (data === "Blocked") {
+    } else if (data === "Account hasn't been activated, pls check your email to activate your account") {
         swal({
             title: "Oops!",
-            text: "Your account has been Blocked, please contact Gofer Admin!",
+            text: "Your account deactivated, please contact Gofer Admin!",
             type: "info",
             showCancelButton: false,
             confirmButtonClass: 'btn btn-info',
@@ -199,18 +220,17 @@ function DisplayUserLogin(data) {
             text: "Successful login",
             type: "success",
             showCancelButton: false,
-            confirmButtonText: '<i class="icon-thumbs-up2 mr-2"></i> Continue ',
             confirmButtonClass: 'btn btn-success',
-            buttonsStyling: false,
+            confirmButtonText: 'Continue',
             onClose: function () {
 //                verifyUser();
-//                window.location = extension + "LinksServlet?type=Errands";
-                window.location = extension + "ControllerServlet?action=Link&type=Errands";
+                window.location = extension + "LinksServlet?type=Errands";
+//                window.location = extension + "ControllerServlet?action=Link&type=Errands";
             }
         });
-        window.location = extension + "LinksServlet?type=Errands";
+//        window.location = extension + "LinksServlet?type=Errands";
     }
-    
+
 }
 
 function GenerateDropCountries() {

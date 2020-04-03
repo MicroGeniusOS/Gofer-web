@@ -28,8 +28,14 @@
         <script src="../Scripts/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="../Scripts/js/helper.js" type="text/javascript"></script>
         <script src="../Scripts/js/script.js" type="text/javascript"></script>
+        <script src="../Scripts/js/parsley.min.js" type="text/javascript"></script>
         <script src="../Scripts/js/AppScript.js" type="text/javascript"></script>
         <script src="../Scripts/js/sweetalert.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#confirmPassword').keyup(isPasswordMatch);
+            });
+        </script>
     </body>
 
 </html>

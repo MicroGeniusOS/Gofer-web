@@ -1,6 +1,8 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
 <header>
+<input type="hidden"  value="<%= session.getAttribute("userName")%>" id="username"/>
+<input type="hidden"  value="<%= session.getAttribute("sess")%>" id="ID"/>
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/ControllerServlet?action=Link&type=Home"><img src="../images/logo-blue.png"
                                                                                                                        style="width:110px; margin-top: -14px;" alt="logo"></a>
@@ -32,7 +34,7 @@
                         class="notification">4</span>
                 </div>
                 <div class="user-box">
-                    <img src="./images/idris.jpg" class="profile-picture" alt="profile-pix"><span>Idowu
+                    <img src="./images/idris.jpg" class="profile-picture" alt="profile-pix"><span id="userN">Idowu
                         Aboyade</span>
                 </div>
             </form>
